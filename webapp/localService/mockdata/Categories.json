@@ -1,0 +1,10 @@
+[{
+	"Name": "Category A",
+	"Id": 1
+}, {
+	"Id": 2,
+	"Name": "Category B"
+}, {
+	"Id": 3,
+	"Name": "Category C"
+}]

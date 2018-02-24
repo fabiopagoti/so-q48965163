@@ -1,0 +1,44 @@
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+	<edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="2.0">
+		<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="S1">
+			<EntityType Name="Category">
+				<Key>
+					<PropertyRef Name="Id"/>
+				</Key>
+				<Property Name="Id" Type="Edm.Int32" Nullable="false"/>
+				<Property Name="Name" Type="Edm.String" Nullable="false"/>
+				<NavigationProperty Name="ToSubCategories" Relationship="S1.Category_SubCategory" FromRole="Parent" ToRole="Child"/>
+			</EntityType>
+			<EntityType Name="SubCategory">
+				<Key>
+					<PropertyRef Name="Id"/>
+				</Key>
+				<Property Name="Id" Type="Edm.Int32" Nullable="false"/>
+				<Property Name="Category" Type="Edm.Int32" Nullable="false"/>
+				<Property Name="Name" Type="Edm.String" Nullable="false"/>
+			</EntityType>
+			 
+			<Association Name="Category_SubCategory">
+				<End Type="S1.Category" Role="Parent" Multiplicity="1"/>
+				<End Type="S1.SubCategory" Role="Child" Multiplicity="*"/>
+				<ReferentialConstraint>
+					<Principal Role="Parent">
+						<PropertyRef Name="Id"/>
+					</Principal>
+					<Dependent Role="Child">
+						<PropertyRef Name="Category"/>
+					</Dependent>
+				</ReferentialConstraint>
+				
+			</Association>
+			<EntityContainer Name="EC1" m:IsDefaultEntityContainer="true">
+				<EntitySet Name="Categories" EntityType="S1.Category"/>
+				<EntitySet Name="SubCategories" EntityType="S1.SubCategory"/>
+				<AssociationSet Name="Categories_SubCategories" Association="S1.Category_SubCategory">
+					<End Role="Parent" EntitySet="Categories"/>
+					<End Role="Child" EntitySet="SubCategories"/>
+				</AssociationSet>
+			</EntityContainer>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>
